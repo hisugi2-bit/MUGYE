@@ -112,64 +112,44 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
                   className="absolute w-36 h-36 rounded-full blur-xl pointer-events-none"
                 />
 
-                {/* 3D simulated ring body */}
+                {/* 3D simulated ring body using actual product image */}
                 <motion.div
                   key={`${shape}-${material}-${decoration}`}
                   initial={{ opacity: 0, scale: 0.85, rotateY: -15 }}
                   animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="relative w-36 h-36 rounded-full flex items-center justify-center border-2 border-neutral-900 shadow-inner group-hover:scale-105 transition-transform duration-500"
-                  style={{
-                    background: `radial-gradient(circle at center, ${materialsInfo[material].rgb}ee, #050505)`,
-                    boxShadow: `inset 0 0 25px rgba(0, 0, 0, 0.9), 0 10px 30px rgba(0,0,0,0.5)`,
-                  }}
+                  className="relative w-36 h-36 rounded-sm overflow-hidden border border-neutral-800 shadow-2xl group-hover:scale-105 transition-transform duration-500 bg-neutral-900"
                 >
-                  {/* Subtle wood rings overlay */}
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_65%_35%,_rgba(255,255,255,0.03)_0%,_rgba(0,0,0,0.4)_100%)] mix-blend-overlay opacity-60 pointer-events-none" />
+                  <Image
+                    src={shape === 'female' ? '/images/amkkaji.jpeg' : '/images/sukkaji.jpeg'}
+                    alt={shape === 'female' ? '무계 암깍지 실물' : '무계 수깍지 실물'}
+                    fill
+                    className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                    sizes="144px"
+                  />
+                  {/* Overlay vignette to match luxury style */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
                   
-                  {/* Outer rim highlighting to emphasize curvature */}
-                  <div className="absolute inset-1 rounded-full border border-white/5 pointer-events-none" />
-                  
-                  {/* Center hole symbolizing the thumb fit */}
-                  <div className="w-16 h-16 rounded-full bg-neutral-950/90 border border-neutral-900 shadow-inner flex items-center justify-center relative">
-                    {/* Ring inner hole details */}
-                    <div className="absolute inset-1 rounded-full bg-neutral-950" />
-                  </div>
-
-                  {/* Protruding section representing the kkaji lip/tongue */}
-                  {shape === 'male' ? (
-                    // Male kkaji has a tongue (수깍지 혀)
-                    <motion.div 
-                      initial={{ scale: 0 }} 
-                      animate={{ scale: 1 }} 
-                      className="absolute -right-2 top-1/2 -translate-y-1/2 w-8 h-10 rounded-r-md border-r border-t border-b border-neutral-800"
-                      style={{
-                        background: `linear-gradient(to right, ${materialsInfo[material].rgb}, #050505)`,
-                        boxShadow: `0 4px 8px rgba(0,0,0,0.4)`
-                      }}
-                    />
-                  ) : (
-                    // Female kkaji has a grooved brim (암깍지 골)
-                    <motion.div 
-                      initial={{ scale: 0 }} 
-                      animate={{ scale: 1 }} 
-                      className="absolute -right-1 top-1/2 -translate-y-1/2 w-4 h-8 rounded-l-md border-l border-t border-b border-neutral-950/80"
-                      style={{
-                        background: `rgba(0, 0, 0, 0.45)`,
-                        boxShadow: `inset 0 0 5px rgba(0,0,0,0.8)`
-                      }}
-                    />
+                  {/* Subtly tint/tint-overlay depending on selected material */}
+                  {material === 'ebony' && (
+                    <div className="absolute inset-0 bg-neutral-950/15 mix-blend-multiply pointer-events-none" />
+                  )}
+                  {material === 'lignum' && (
+                    <div className="absolute inset-0 bg-emerald-950/15 mix-blend-color pointer-events-none" />
+                  )}
+                  {material === 'jujube' && (
+                    <div className="absolute inset-0 bg-red-950/15 mix-blend-color pointer-events-none" />
                   )}
 
-                  {/* Logo Decoration Inlay */}
+                  {/* Logo Decoration Inlay Overlay if selected */}
                   {decoration === 'gold' && (
-                    <div className="absolute left-1/2 top-1/4 -translate-x-1/2 w-5 h-5 opacity-90 transition-opacity">
+                    <div className="absolute right-3 bottom-3 w-5 h-5 opacity-90 transition-opacity">
                       <Image
                         src="/images/logo-gold.png"
-                        alt="무계 각인"
+                        alt="무계 황금 각인"
                         fill
-                        className="object-contain filter drop-shadow-[0_0_2px_rgba(212,175,55,0.7)]"
+                        className="object-contain filter drop-shadow-[0_0_3px_rgba(212,175,55,0.7)]"
                         sizes="20px"
                       />
                     </div>
