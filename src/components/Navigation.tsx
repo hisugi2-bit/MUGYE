@@ -12,25 +12,15 @@ export default function Navigation({ onFittingClick }: NavigationProps) {
     <nav className="fixed top-0 left-0 w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-900/50">
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Brand Logo & Name */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="relative w-8 h-8 opacity-90 group-hover:opacity-100 transition-opacity">
-            <Image
-              src="/images/logo-symbol.png"
-              alt="무계 심볼"
-              fill
-              className="object-contain"
-              sizes="32px"
-              priority
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-serif-kr font-semibold tracking-widest text-neutral-100 group-hover:text-gold-400 transition-colors">
-              무계
-            </span>
-            <span className="text-[10px] font-sans font-light tracking-[0.2em] text-neutral-400 uppercase leading-none">
-              MUGYE · 無界
-            </span>
-          </div>
+        <a href="#" className="relative w-36 h-12 group block">
+          <Image
+            src="/images/logo-symbol.png"
+            alt="무계 MUGYE"
+            fill
+            className="object-contain opacity-95 group-hover:opacity-100 transition-opacity"
+            sizes="144px"
+            priority
+          />
         </a>
 
         {/* Menu Links */}

@@ -31,14 +31,14 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
-          className="relative w-24 h-24 mx-auto"
+          className="relative w-48 h-48 mx-auto"
         >
           <Image
             src="/images/logo-gold-p.png"
             alt="무계 황금 문양"
             fill
             className="object-contain filter drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
-            sizes="96px"
+            sizes="192px"
             priority
           />
         </motion.div>

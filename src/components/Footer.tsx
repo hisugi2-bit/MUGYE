@@ -10,19 +10,14 @@ export default function Footer() {
         
         {/* Brand details */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="relative w-6 h-6 opacity-60">
-              <Image
-                src="/images/logo-symbol.png"
-                alt="무계 심볼"
-                fill
-                className="object-contain filter grayscale"
-                sizes="24px"
-              />
-            </div>
-            <span className="font-serif-kr text-sm tracking-widest text-neutral-400 font-medium">
-              무계 (無界 / MUGYE)
-            </span>
+          <div className="relative w-28 h-8 opacity-50">
+            <Image
+              src="/images/logo-symbol.png"
+              alt="무계 MUGYE"
+              fill
+              className="object-contain filter grayscale brightness-75"
+              sizes="112px"
+            />
           </div>
           <p className="text-[11px] text-neutral-500 font-light leading-relaxed max-w-sm">
             손가락 관절의 안착도와 출전 발시의 일관성을 극대화하는 전통 공예와 현대 인체공학적 설계의 융합. 0.1mm의 오차를 허물어 물아일체의 경지를 선사합니다.
