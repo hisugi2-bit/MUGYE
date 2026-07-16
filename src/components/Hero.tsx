@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden bg-neutral-950">
+    <section className="relative min-h-screen flex items-center justify-start pt-20 px-6 overflow-hidden bg-neutral-950">
       {/* Background Video */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <video
@@ -25,7 +25,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-20 max-w-5xl mx-auto w-full px-6 flex flex-col justify-center items-start text-left space-y-8 min-h-screen pt-24 pb-12">
+      <div className="relative z-20 max-w-2xl w-full flex flex-col justify-center items-start text-left space-y-8 min-h-screen pt-24 pb-12 md:pl-12 lg:pl-20">
         {/* Gold Emblem Symbol */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
