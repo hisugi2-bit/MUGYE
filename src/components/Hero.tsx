@@ -25,20 +25,20 @@ export default function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-20 max-w-4xl mx-auto text-center space-y-10">
+      <div className="relative z-20 max-w-5xl mx-auto w-full px-6 flex flex-col justify-center items-start text-left space-y-8 min-h-screen pt-24 pb-12">
         {/* Gold Emblem Symbol */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
-          className="relative w-48 h-48 mx-auto"
+          className="relative w-44 h-44 filter drop-shadow-[0_0_15px_rgba(212,175,55,0.25)]"
         >
           <Image
-            src="/images/logo-gold-p.png"
-            alt="무계 황금 문양"
+            src="/images/logo-symbol.png"
+            alt="무계 황금 로고"
             fill
-            className="object-contain filter drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
-            sizes="192px"
+            className="object-contain"
+            sizes="176px"
             priority
           />
         </motion.div>
@@ -50,7 +50,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="inline-block px-5 py-1.5 border border-gold-900/40 bg-neutral-900/60 backdrop-blur-sm text-gold-400 text-xs tracking-[0.3em] uppercase rounded-sm"
         >
-          정중동(靜中動)의 이치
+          정중동(靜中동)의 이치
         </motion.div>
 
         {/* Catchphrase */}
@@ -69,7 +69,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-neutral-400 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed font-light tracking-wider"
+          className="text-neutral-400 text-xs md:text-sm max-w-lg leading-relaxed font-light tracking-wider"
         >
           온 신경을 집중하여 미동조차 없는 고요함 속에,<br className="hidden md:block" />
           시위를 떠난 화살이 과녁을 매섭게 꿰뚫는 폭발적인 순간.
@@ -80,14 +80,14 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="pt-6"
+          className="pt-4"
         >
           <a
             href="#philosophy"
-            className="text-xs tracking-[0.25em] text-neutral-500 hover:text-gold-400 transition-colors inline-flex flex-col items-center gap-3 group uppercase"
+            className="text-xs tracking-[0.25em] text-neutral-500 hover:text-gold-400 transition-colors inline-flex flex-col items-start gap-3 group uppercase"
           >
             <span>무계의 철학 탐구하기</span>
-            <ChevronDown className="w-4 h-4 animate-bounce text-neutral-600 group-hover:text-gold-500 transition-colors" />
+            <ChevronDown className="w-4 h-4 animate-bounce text-neutral-600 group-hover:text-gold-500 transition-colors ml-1" />
           </a>
         </motion.div>
       </div>
