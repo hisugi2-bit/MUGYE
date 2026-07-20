@@ -157,7 +157,7 @@ export default function FittingForm({ prefilledValues }: FittingFormProps) {
             <div className="space-y-2 relative z-10">
               <h4 className="text-xl font-serif-kr text-neutral-100">맞춤 피팅 상담 신청이 완료되었습니다</h4>
               <p className="text-xs text-neutral-400 leading-relaxed max-w-md mx-auto">
-                입력하신 정보와 깍지 사양을 바탕으로, **깍지장 양봉석 장인**이 접수 자료를 직접 검토하여 24시간 이내에 기재해 주신 연락처로 정밀 피팅 예약 일정을 안내해 드리겠습니다.
+                입력하신 정보와 깍지 사양을 바탕으로, **깍지장 김종구 장인**이 접수 자료를 직접 검토하여 24시간 이내에 기재해 주신 연락처로 정밀 피팅 예약 일정을 안내해 드리겠습니다.
               </p>
             </div>
 
@@ -176,7 +176,7 @@ export default function FittingForm({ prefilledValues }: FittingFormProps) {
             </div>
 
             <div className="text-[10px] text-neutral-500 pt-2">
-              급한 문의사항은 **010-6360-4462 (양봉석 장인)**으로 직접 연락 주셔도 빠릅니다.
+              급한 문의사항은 **010-5471-4891 (김종구 장인)**으로 직접 연락 주셔도 빠릅니다.
             </div>
           </motion.div>
         ) : (
@@ -280,6 +280,7 @@ export default function FittingForm({ prefilledValues }: FittingFormProps) {
                     <option>흑단 (Ebony)</option>
                     <option>유창목 (Lignum Vitae)</option>
                     <option>벽조목 (Lightning Jujube)</option>
+                    <option>소뿔 (Water Buffalo Horn)</option>
                     <option>상담 후 결정</option>
                   </select>
                 </div>

@@ -15,8 +15,41 @@ interface ConfiguratorProps {
 
 export default function Configurator({ onSelectionComplete }: ConfiguratorProps) {
   const [shape, setShape] = useState<'female' | 'male'>('female');
-  const [material, setMaterial] = useState<'ebony' | 'lignum' | 'jujube'>('ebony');
+  const [material, setMaterial] = useState<'ebony' | 'lignum' | 'jujube' | 'horn'>('ebony');
   const [decoration, setDecoration] = useState<'gold' | 'plain'>('gold');
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+
+  // Actual product images mapping
+  const productImages: Record<string, string[]> = {
+    'female-ebony': ['/images/amkkaji-ebony-4.jpg'],
+    'female-lignum': ['/images/amkkaji-lignum-1.jpg', '/images/amkkaji-lignum-2.jpg'],
+    'female-horn': ['/images/amkkaji-horn-1.jpg'],
+    'male-ebony': [
+      '/images/sukkaji-ebony-1.jpg',
+      '/images/sukkaji-ebony-2.jpg',
+      '/images/sukkaji-ebony-3.jpg',
+      '/images/sukkaji-ebony-4.jpg',
+    ],
+  };
+
+  const getImages = () => {
+    const key = `${shape}-${material}`;
+    return productImages[key] || [shape === 'female' ? '/images/amkkaji.jpeg' : '/images/sukkaji.jpeg'];
+  };
+
+  const currentImages = getImages();
+  const currentImage = currentImages[activeImageIndex] || currentImages[0];
+  const isFallback = !productImages[`${shape}-${material}`];
+
+  const handleShapeChange = (newShape: 'female' | 'male') => {
+    setShape(newShape);
+    setActiveImageIndex(0);
+  };
+
+  const handleMaterialChange = (newMaterial: 'ebony' | 'lignum' | 'jujube' | 'horn') => {
+    setMaterial(newMaterial);
+    setActiveImageIndex(0);
+  };
 
   // Materials information
   const materialsInfo = {
@@ -44,6 +77,14 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
       benefit: '전통적인 붉은 색조, 질기고 단단한 성질, 벽사(辟邪)의 의미',
       time: '7 ~ 12일 소요',
     },
+    horn: {
+      name: '소뿔 (Water Buffalo Horn)',
+      colorClass: 'bg-amber-950/50',
+      rgb: '#4a3b32',
+      text: '전통 국궁 깍지의 최고급 천연 소재입니다. 소뿔 고유의 단단하고 끈끈한 조직감이 현을 당길 때의 마찰을 자연스럽게 줄여주며, 쓸수록 손때가 타서 고풍스럽게 길들어갑니다.',
+      benefit: '최고의 전통성, 뛰어난 현 활주성, 길들여짐의 깊이',
+      time: '12 ~ 18일 소요',
+    },
   };
 
   const handleApply = () => {
@@ -60,9 +101,9 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
         
         {/* Title */}
         <div className="text-center space-y-4">
-          <h2 className="text-[10px] uppercase tracking-[0.4em] text-gold-500 font-medium">Kkaji Configurator</h2>
+          <h2 className="text-[11px] md:text-xs uppercase tracking-[0.4em] text-gold-500 font-medium">Kkaji Configurator</h2>
           <h3 className="text-3xl font-serif-kr text-neutral-100">깍지 비주얼라이저</h3>
-          <p className="text-xs text-neutral-400 font-light max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm text-neutral-400 font-light max-w-xl mx-auto leading-relaxed">
             장인의 손길로 다듬어질 나만의 깍지 형태와 목재 재질, 로고 옵션을 미리 조합하여 시각적으로 탐색해 보십시오.
           </p>
         </div>
@@ -102,59 +143,89 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
               </div>
 
               {/* Dynamic Archery Ring Rendering */}
-              <div className="relative w-48 h-48 flex items-center justify-center z-10 select-none">
-                {/* Outer shadow / aura */}
-                <motion.div
-                  animate={{
-                    boxShadow: `0 0 40px 10px ${materialsInfo[material].rgb}40`,
-                  }}
-                  transition={{ duration: 0.6 }}
-                  className="absolute w-36 h-36 rounded-full blur-xl pointer-events-none"
-                />
-
-                {/* 3D simulated ring body using actual product image */}
-                <motion.div
-                  key={`${shape}-${material}-${decoration}`}
-                  initial={{ opacity: 0, scale: 0.85, rotateY: -15 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="relative w-36 h-36 rounded-sm overflow-hidden border border-neutral-800 shadow-2xl group-hover:scale-105 transition-transform duration-500 bg-neutral-900"
-                >
-                  <Image
-                    src={shape === 'female' ? '/images/amkkaji.jpeg' : '/images/sukkaji.jpeg'}
-                    alt={shape === 'female' ? '무계 암깍지 실물' : '무계 수깍지 실물'}
-                    fill
-                    className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                    sizes="144px"
+              <div className="flex flex-col items-center gap-3 z-10 w-full select-none">
+                <div className="relative w-48 h-48 flex items-center justify-center select-none">
+                  {/* Outer shadow / aura */}
+                  <motion.div
+                    animate={{
+                      boxShadow: `0 0 40px 10px ${materialsInfo[material].rgb}40`,
+                    }}
+                    transition={{ duration: 0.6 }}
+                    className="absolute w-36 h-36 rounded-full blur-xl pointer-events-none"
                   />
-                  {/* Overlay vignette to match luxury style */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
-                  
-                  {/* Subtly tint/tint-overlay depending on selected material */}
-                  {material === 'ebony' && (
-                    <div className="absolute inset-0 bg-neutral-950/15 mix-blend-multiply pointer-events-none" />
-                  )}
-                  {material === 'lignum' && (
-                    <div className="absolute inset-0 bg-emerald-950/15 mix-blend-color pointer-events-none" />
-                  )}
-                  {material === 'jujube' && (
-                    <div className="absolute inset-0 bg-red-950/15 mix-blend-color pointer-events-none" />
-                  )}
 
-                  {/* Logo Decoration Inlay Overlay if selected */}
-                  {decoration === 'gold' && (
-                    <div className="absolute right-3 bottom-3 w-5 h-5 opacity-90 transition-opacity">
-                      <Image
-                        src="/images/logo-gold.png"
-                        alt="무계 황금 각인"
-                        fill
-                        className="object-contain filter drop-shadow-[0_0_3px_rgba(212,175,55,0.7)]"
-                        sizes="20px"
+                  {/* 3D simulated ring body using actual product image */}
+                  <motion.div
+                    key={`${shape}-${material}-${decoration}-${activeImageIndex}`}
+                    initial={{ opacity: 0, scale: 0.85, rotateY: -15 }}
+                    animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                    className="relative w-36 h-36 rounded-sm overflow-hidden border border-neutral-800 shadow-2xl group-hover:scale-105 transition-transform duration-500 bg-neutral-900"
+                  >
+                    <Image
+                      src={currentImage}
+                      alt={shape === 'female' ? '무계 암깍지 실물' : '무계 수깍지 실물'}
+                      fill
+                      className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                      sizes="144px"
+                    />
+                    {/* Overlay vignette to match luxury style */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
+                    
+                    {/* Subtly tint/tint-overlay depending on selected material (only for fallback images) */}
+                    {isFallback && (
+                      <>
+                        {material === 'ebony' && (
+                          <div className="absolute inset-0 bg-neutral-950/15 mix-blend-multiply pointer-events-none" />
+                        )}
+                        {material === 'lignum' && (
+                          <div className="absolute inset-0 bg-emerald-950/15 mix-blend-color pointer-events-none" />
+                        )}
+                        {material === 'jujube' && (
+                          <div className="absolute inset-0 bg-red-950/15 mix-blend-color pointer-events-none" />
+                        )}
+                        {material === 'horn' && (
+                          <div className="absolute inset-0 bg-amber-950/15 mix-blend-color pointer-events-none" />
+                        )}
+                      </>
+                    )}
+
+                    {/* Logo Decoration Inlay Overlay if selected */}
+                    {decoration === 'gold' && (
+                      <div className="absolute right-3 bottom-3 w-5 h-5 opacity-90 transition-opacity z-20">
+                        <Image
+                          src="/images/logo-gold.png"
+                          alt="무계 황금 각인"
+                          fill
+                          className="object-contain filter drop-shadow-[0_0_3px_rgba(212,175,55,0.7)]"
+                          sizes="20px"
+                        />
+                      </div>
+                    )}
+                  </motion.div>
+                </div>
+
+                {/* Interactive Multi-angle Thumbnail indicators */}
+                {currentImages.length > 1 && (
+                  <div className="flex justify-center gap-2 mt-1">
+                    {currentImages.map((img, idx) => (
+                      <button
+                        key={idx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveImageIndex(idx);
+                        }}
+                        className={`w-2 h-2 rounded-full border transition-all cursor-pointer ${
+                          activeImageIndex === idx
+                            ? 'bg-gold-500 border-gold-500 scale-125'
+                            : 'bg-neutral-800 border-neutral-700 hover:bg-neutral-700'
+                        }`}
+                        title={`${idx + 1}번 각도 보기`}
                       />
-                    </div>
-                  )}
-                </motion.div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Bottom Specs */}
@@ -185,7 +256,7 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <button
-                  onClick={() => setShape('female')}
+                  onClick={() => handleShapeChange('female')}
                   className={`p-5 text-left border rounded-xs transition-all relative ${
                     shape === 'female'
                       ? 'border-gold-500 bg-gold-950/5'
@@ -198,13 +269,13 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
                     </span>
                   )}
                   <h5 className="font-serif-kr text-sm text-neutral-100 font-medium">암깍지 (Female Kkaji)</h5>
-                  <p className="text-[11px] text-neutral-400 font-light mt-2 leading-relaxed">
+                  <p className="text-xs md:text-sm text-neutral-400 font-light mt-2 leading-relaxed">
                     시위가 걸리는 홈이 턱처럼 파여있어 시위를 걸기 수월합니다. 현대의 대다수 궁사들이 보편적으로 애용하는 표준 형태입니다.
                   </p>
                 </button>
 
                 <button
-                  onClick={() => setShape('male')}
+                  onClick={() => handleShapeChange('male')}
                   className={`p-5 text-left border rounded-xs transition-all relative ${
                     shape === 'male'
                       ? 'border-gold-500 bg-gold-950/5'
@@ -217,7 +288,7 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
                     </span>
                   )}
                   <h5 className="font-serif-kr text-sm text-neutral-100 font-medium">수깍지 (Male Kkaji)</h5>
-                  <p className="text-[11px] text-neutral-400 font-light mt-2 leading-relaxed">
+                  <p className="text-xs md:text-sm text-neutral-400 font-light mt-2 leading-relaxed">
                     엄지손가락 마디 바깥으로 턱 모양의 혀(돌기)가 튀어나와 있습니다. 고파운드 궁력을 구사하는 전통 사법에 적합합니다.
                   </p>
                 </button>
@@ -229,14 +300,14 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
               <h4 className="text-xs uppercase tracking-widest text-neutral-400 flex items-center gap-1.5 font-medium">
                 <span>02. 명품 목재 선택 (Materials)</span>
               </h4>
-              <div className="grid md:grid-cols-3 gap-4">
-                {(Object.keys(materialsInfo) as Array<'ebony' | 'lignum' | 'jujube'>).map((key) => {
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {(Object.keys(materialsInfo) as Array<'ebony' | 'lignum' | 'jujube' | 'horn'>).map((key) => {
                   const active = material === key;
                   return (
                     <button
                       key={key}
-                      onClick={() => setMaterial(key)}
-                      className={`p-5 text-left border rounded-xs transition-all relative flex flex-col justify-between h-48 ${
+                      onClick={() => handleMaterialChange(key)}
+                      className={`p-5 text-left border rounded-xs transition-all relative flex flex-col justify-between h-52 ${
                         active
                           ? 'border-gold-500 bg-gold-950/5'
                           : 'border-neutral-900 bg-neutral-900/10 hover:border-neutral-800'
@@ -251,14 +322,14 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
                             </span>
                           )}
                         </div>
-                        <h5 className="font-serif-kr text-sm text-neutral-100 font-medium">
+                        <h5 className="font-serif-kr text-xs md:text-sm text-neutral-100 font-medium leading-tight">
                           {materialsInfo[key].name}
                         </h5>
-                        <p className="text-[10px] text-neutral-400 font-light mt-2 leading-relaxed line-clamp-4">
+                        <p className="text-xs md:text-sm text-neutral-400 font-light mt-2 leading-relaxed line-clamp-5">
                           {materialsInfo[key].text}
                         </p>
                       </div>
-                      <div className="text-[9px] text-gold-400/80 font-light border-t border-neutral-900 pt-2 mt-2">
+                      <div className="text-[10px] md:text-[11px] text-gold-400/80 font-light border-t border-neutral-900 pt-2 mt-2">
                         {materialsInfo[key].benefit.split(',')[0]}
                       </div>
                     </button>
@@ -287,7 +358,7 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
                     </span>
                   )}
                   <h5 className="font-serif-kr text-sm text-neutral-100 font-medium">무계 로고 금칠 (Gold Lacquer)</h5>
-                  <p className="text-[11px] text-neutral-400 font-light mt-2 leading-relaxed">
+                  <p className="text-xs md:text-sm text-neutral-400 font-light mt-2 leading-relaxed">
                     깍지 표면에 무계의 심볼 문양을 정밀하게 음각하고, 옻칠 기법과 금분을 메워 넣어 전통적인 위엄과 품격을 더합니다.
                   </p>
                 </button>
@@ -306,7 +377,7 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
                     </span>
                   )}
                   <h5 className="font-serif-kr text-sm text-neutral-100 font-medium">민무늬 (Plain Wood)</h5>
-                  <p className="text-[11px] text-neutral-400 font-light mt-2 leading-relaxed">
+                  <p className="text-xs md:text-sm text-neutral-400 font-light mt-2 leading-relaxed">
                     장식 각인을 생략하고, 귀한 목재의 수려하고 깊이 있는 천연 나이테와 웅장한 결의 미학을 그대로 부각합니다.
                   </p>
                 </button>
@@ -316,14 +387,14 @@ export default function Configurator({ onSelectionComplete }: ConfiguratorProps)
             {/* Customizer CTA */}
             <div className="pt-4 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="space-y-1">
-                <span className="text-[10px] text-neutral-500 tracking-wider font-sans uppercase">Selected Combination</span>
-                <p className="text-xs text-neutral-300 font-serif-kr">
+                <span className="text-xs text-neutral-500 tracking-wider font-sans uppercase">Selected Combination</span>
+                <p className="text-sm text-neutral-300 font-serif-kr">
                   {shape === 'female' ? '암깍지' : '수깍지'} · {materialsInfo[material].name} · {decoration === 'gold' ? '금칠 각인' : '민무늬'}
                 </p>
               </div>
               <button
                 onClick={handleApply}
-                className="w-full md:w-auto px-8 py-4 bg-gold-500 hover:bg-gold-600 text-neutral-950 font-semibold text-xs tracking-widest uppercase transition-all rounded-xs cursor-pointer shadow-lg shadow-gold-500/10"
+                className="w-full md:w-auto px-8 py-4 bg-gold-500 hover:bg-gold-600 text-neutral-950 font-semibold text-sm tracking-widest uppercase transition-all rounded-xs cursor-pointer shadow-lg shadow-gold-500/10"
               >
                 이 설정으로 맞춤 피팅 신청하기
               </button>

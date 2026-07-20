@@ -48,7 +48,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="inline-block px-5 py-1.5 border border-gold-900/40 bg-neutral-900/60 backdrop-blur-sm text-gold-400 text-xs tracking-[0.3em] uppercase rounded-sm"
+          className="inline-block px-5 py-1.5 border border-gold-900/40 bg-neutral-900/60 backdrop-blur-sm text-gold-400 text-sm tracking-[0.3em] uppercase rounded-sm"
         >
           정중동(靜中동)의 이치
         </motion.div>
@@ -69,7 +69,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-neutral-400 text-xs md:text-sm max-w-lg leading-relaxed font-light tracking-wider"
+          className="text-neutral-400 text-sm md:text-base max-w-lg leading-relaxed font-light tracking-wider"
         >
           온 신경을 집중하여 미동조차 없는 고요함 속에,<br className="hidden md:block" />
           시위를 떠난 화살이 과녁을 매섭게 꿰뚫는 폭발적인 순간.
@@ -84,7 +84,7 @@ export default function Hero() {
         >
           <a
             href="#philosophy"
-            className="text-xs tracking-[0.25em] text-neutral-500 hover:text-gold-400 transition-colors inline-flex flex-col items-start gap-3 group uppercase"
+            className="text-sm tracking-[0.25em] text-neutral-500 hover:text-gold-400 transition-colors inline-flex flex-col items-start gap-3 group uppercase"
           >
             <span>무계의 철학 탐구하기</span>
             <ChevronDown className="w-4 h-4 animate-bounce text-neutral-600 group-hover:text-gold-500 transition-colors ml-1" />

@@ -27,13 +27,13 @@ export default function Footer() {
         {/* Contact details */}
         <div className="space-y-2 text-left md:text-right font-light">
           <p className="text-xs text-neutral-400 font-serif-kr font-medium">
-            무계 공방 · 깍지장 양봉석
+            무계 공방 · 깍지장 김종구
           </p>
           <p className="text-[11px] text-neutral-500 font-sans">
-            연락처: <span className="text-neutral-400">010.6360.4462</span>
+            연락처: <span className="text-neutral-400">010-5471-4891</span>
           </p>
           <p className="text-[11px] text-neutral-500 font-sans">
-            제작 재질: 흑단 (Ebony), 유창목 (Lignum Vitae), 벽조목 (Lightning Jujube)
+            제작 재질: 흑단 (Ebony), 유창목 (Lignum Vitae), 벽조목 (Lightning Jujube), 소뿔 (Water Buffalo Horn)
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export default function Footer() {
 
       <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-neutral-900/60 text-center text-[10px] text-neutral-600 font-sans">
         <p>© {new Date().getFullYear()} MUGYE. All rights reserved.</p>
-        <p className="mt-1 opacity-70">Handcrafted in South Korea by Gakjijang Yang Bong-seok.</p>
+        <p className="mt-1 opacity-70">Handcrafted in South Korea by Gakjijang Kim Jong-gu.</p>
       </div>
     </footer>
   );

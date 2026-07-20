@@ -21,7 +21,7 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "무계 無界 | MUGYE - 궁사 전용 1:1 맞춤 피팅 수제 깍지",
-  description: "전통 핸드메이드 기법과 정교한 인체공학 설계를 더한 양봉석 장인의 명품 수제 깍지. 시위를 당길 때 통증이 없고 흔들림 없는 안정을 선사합니다.",
+  description: "전통 핸드메이드 기법과 정교한 인체공학 설계를 더한 김종구 장인의 명품 수제 깍지. 시위를 당길 때 통증이 없고 흔들림 없는 안정을 선사합니다.",
 };
 
 export default function RootLayout({
