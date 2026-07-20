@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import BgmPlayer from './BgmPlayer';
 
 interface NavigationProps {
   onFittingClick: () => void;
@@ -51,13 +52,16 @@ export default function Navigation({ onFittingClick }: NavigationProps) {
           </a>
         </div>
 
-        {/* CTA Button */}
-        <button
-          onClick={onFittingClick}
-          className="text-xs uppercase tracking-widest px-5 py-2.5 bg-neutral-100 text-neutral-950 font-medium hover:bg-gold-500 hover:text-neutral-950 transition-all rounded-sm font-serif-kr cursor-pointer"
-        >
-          맞춤 피팅 신청
-        </button>
+        {/* CTA Button & BGM Player */}
+        <div className="flex items-center gap-4">
+          <BgmPlayer />
+          <button
+            onClick={onFittingClick}
+            className="text-xs uppercase tracking-widest px-5 py-2.5 bg-neutral-100 text-neutral-950 font-medium hover:bg-gold-500 hover:text-neutral-950 transition-all rounded-sm font-serif-kr cursor-pointer"
+          >
+            맞춤 피팅 신청
+          </button>
+        </div>
       </div>
     </nav>
   );

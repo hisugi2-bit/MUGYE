@@ -8,7 +8,6 @@ import Configurator from '@/components/Configurator';
 import Science from '@/components/Science';
 import FittingForm from '@/components/FittingForm';
 import Footer from '@/components/Footer';
-import BgmPlayer from '@/components/BgmPlayer';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
@@ -133,9 +132,6 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
-
-      {/* Background BGM Player */}
-      <BgmPlayer />
     </div>
   );
 }
